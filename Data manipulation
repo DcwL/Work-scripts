@@ -1,0 +1,122 @@
+---
+title: "HBF data pull"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+setwd("C:/Users/dolee/Desktop")
+library(tidyverse)
+library(ICPIutilities)
+library(readxl)
+df <- read_msd("MER_Structured_Datasets_Site_IM_FY18-20_20200320_v2_2_Nigeria.txt")
+df2 <- read_msd("MER_Structured_Datasets_Site_IM_FY18-20_20200320_v2_2_Mozambique.txt")
+df3 <- read_excel("sims_analytic_vw_mozambique_nigeria_data_05012020.xlsx")
+HFRfiles <- list.files(path="C:/Users/dolee/Desktop", pattern="*.csv", full.names = TRUE) %>%
+  lapply(read.csv, stringsAsFactors=F) %>%
+  bind_rows()
+df4 <- read_msd("MER_Structured_Datasets_Site_IM_FY18-20_20200320_v2_2_Nigeria.txt")
+```
+
+```{r}
+HFRfiles %>%
+  filter(primepartner %in% c("Family Health International\n", "Chemonics International Inc.\n", "HEARTLAND ALLIANCE LTD-GTE\n")) %>%
+  write.csv(., file = "new.csv")
+```
+
+```{r Nigeria view}
+df %>% 
+  glimpse() %>%
+  filter(fundingagency == "USAID") %>%
+  filter(primepartner %in% c("Heartland Alliance International, LLC", "Family Health International", "Chemonics International, Inc.", "HEARTLAND ALLIANCE LTD-GTE")) %>%
+  filter(fiscal_year == 2019 & 2020) %>%
+  group_by(fiscal_year) %>%
+  summarise() %>%
+  print(n=Inf)
+```
+
+```{r Nigeria export}
+df %>%
+  glimpse() %>%
+  filter(fundingagency == "USAID") %>%
+  filter(primepartner %in% c("Heartland Alliance International, LLC", "Family Health International", "Chemonics International, Inc.", "HEARTLAND ALLIANCE LTD-GTE")) %>%
+  filter(fiscal_year == 2019 & fiscal_year == 2020) %>%
+  split_save(operatingunit, "C:/Users/dolee/Desktop/Data", "MSD_Site_IM_FY18-20_Data.FI-HBF", include_date=TRUE)
+```
+
+```{r Mozambique view}
+df2 %>% 
+  glimpse() %>%
+  filter(fiscal_year == 2019 & fiscal_year == 2020) %>%
+  group_by(fiscal_year) %>%
+  summarise() %>%
+  print()
+```
+
+```{r Mozambique export}
+df2 %>%
+  filter(fundingagency == "USAID") %>%
+  filter(mech_code == 70212) %>%
+  split_save(operatingunit, "C:/Users/dolee/Desktop/Data2", "MSD_Site_IM_FY19-20_Data.FI-HBF", include_date=TRUE)
+```
+
+```{r SIMS view}
+df3 %>%
+  group_by(ASSESSMENT_QUARTER) %>%
+  summarise()
+```
+
+```{r SIMS export}
+df3 <- df3 %>%
+  filter(IMPLEMENTING_MECHANISM_NAME %in% c("14505 - STRENGHTENING INTERGRATED DELIVERY OF HIV/AIDS SERVICES(SIDHAS)", "14505 - AID620A1100002 - STRENGHTENING INTERGRATED DELIVERY OF HIV/AIDS SERVICES(SIDHAS)", "18442 - GHSC-PSM", "14664 - Integrated MARPs HIV Prevention Program (IMHIPP)"))
+```
+
+```{r}
+write.csv(df3, "C:/Users/dolee/Desktop/Data/USAID_SIMS_Data.FI-HBF.csv")
+```
+
+```{r select}
+full_dataset_url <- "https://media.githubusercontent.com/media/ICPI/TrainingDataset/master/Output/MER_Structured_TRAINING_Datasets_PSNU_IM_FY18-20_20200214_v1_1.txt"
+df_full <- read_msd(full_dataset_url, save_rds = FALSE)
+
+df_full %>%
+  select(operatingunit, ends_with("uid"))
+
+df_full %>%
+  select(-(operatingunit:standardizeddisaggregate), ends_with("uid"))
+  
+df_dplyr %>% select(PSNU = psnu, everything())
+#rename psnu to PSNU, while selecting it
+```
+
+```{r mutate}
+df_full %>%
+  mutate(achievement = round(cumulative/targets,2)) %>%
+  filter(fiscal_year == 2020) %>%
+  view()
+  
+df %>%
+  mutate(fundingagency = str_remove(fundingagency, "HHS/"),
+  fundingagency = factor(fundingagency, c("USAID", "CDC", "DOD"))) %>% #everything that has this pattern %>%
+  count(fundingagency)
+  
+df %>%
+  mutate(fundingagency = if_else(fundingagency == "USAID", "USAID", "Other"),
+         fundingagency = factor(fundingagency, c("USAID", "Other")))
+
+# how many mechs had targets for TX_CURR for USAID in 2019?
+df %>% 
+  filter(fundingagency == "USAID",
+         indicator == "TX_CURR",
+         fiscal_year== 2019) %>%
+  mutate(no_targets = if_else(targets>0, "yes", "no")) %>%
+  filter(no_targets != 0) %>%
+  distinct(mech_name)
+  
+ 
+```
+
