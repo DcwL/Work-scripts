@@ -2,7 +2,7 @@
 
 ![Image](https://cdn.pixabay.com/photo/2014/06/18/13/23/time-371226_960_720.jpg)
 
-This is a repository of my R codes from work used to perform data import, cleaning, validation, and manpiulation. 
+This is a repository of my R codes from work used to perform data import, cleaning, validation, and manipulation. 
 
 R packages used:
 
