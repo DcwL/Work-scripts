@@ -1,0 +1,95 @@
+---
+title: "SI fixes.Rmd"
+output: html_document
+---
+
+```{Setting Working Directory}
+getwd()
+setwd("C:/Users/dolee/Desktop/HFR")
+```
+
+```{Install & load packages}
+library(tidyverse)
+devtools::install_github("USAID-OHA-SI/Wavelength")
+library(Wavelength)
+```
+
+```{r}
+#Ethiopia PD1
+files <- list.files(path="./SI fixes 2020.05.01/Input/Ethiopia/PD1", full.names = TRUE)
+output_folder <- "./SI fixes 2020.05.01/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=1, folderpath_output=output_folder)
+```
+
+```{r}
+#Ethiopia PD2
+files <- list.files(path="./SI fixes 2020.05.01/Input/Ethiopia/PD2", full.names = TRUE)
+output_folder <- "./SI fixes 2020.05.01/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=2, folderpath_output=output_folder)
+```
+
+```{r}
+#Ethiopia PD3
+files <- list.files(path="./SI fixes 2020.05.01/Input/Ethiopia/PD3", full.names = TRUE)
+output_folder <- "./SI fixes 2020.05.01/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=3, folderpath_output=output_folder)
+```
+
+```{r}
+#Ethiopia PD4
+files <- list.files(path="./SI fixes 2020.05.01/Input/Ethiopia/PD4", full.names = TRUE)
+output_folder <- "./SI fixes 2020.05.01/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=4, folderpath_output=output_folder)
+```
+
+```{r}
+#Botswana
+files <- list.files(path="./SI fixes 2020.05.01/Input/Botswana/PD3", full.names = TRUE)
+output_folder <- "./SI fixes 2020.05.01/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=3, folderpath_output=output_folder)
+```
+
+```{r}
+#Botswana
+files <- list.files(path="./SI fixes 2020.05.01/Input/Botswana/PD4", full.names = TRUE)
+output_folder <- "./SI fixes 2020.05.01/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=4, folderpath_output=output_folder)
+```
+
+```{r}
+#Botswana
+files <- list.files(path="./SI fixes 2020.05.01/Input/Botswana/PD5", full.names = TRUE)
+output_folder <- "./SI fixes 2020.05.01/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=5, folderpath_output=output_folder)
+```
+
+```{r}
+#South Africa
+files <- list.files(path="./SI fixes 2020.05.01/Input/South Africa", full.names = TRUE)
+output_folder <- "./SI fixes 2020.05.01/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=4, folderpath_output=output_folder)
+```
+
+```{r}
+#Vietnam
+files <- list.files(path="./SI fixes 2020.05.01/Input/Vietnam", full.names = TRUE)
+output_folder <- "./SI fixes 2020.05.01/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=1, folderpath_output=output_folder)
+```
+
+```{r}
+#Uganda
+files <- list.files(path="./SI fixes 2020.05.01/Input/Uganda", full.names = TRUE)
+output_folder <- "./SI fixes 2020.05.01/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=3, folderpath_output=output_folder)
+```

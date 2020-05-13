@@ -1,0 +1,121 @@
+---
+title: "HFR 2020.07"
+output: html_document
+---
+
+```{Setting Working Directory}
+getwd()
+setwd("C:/Users/dolee/Desktop/HFR")
+```
+
+```{Install & load packages}
+library(tidyverse)
+devtools::install_github("USAID-OHA-SI/Wavelength")
+library(Wavelength)
+```
+
+
+```{Validation check}
+#Vietnam
+files <- list.files(path="./2020.07/Raw/Vietnam", full.names=TRUE)
+output_folder <- "C:/Users/dolee/Desktop/HFR/2020.07/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+```
+
+```{Validation check}
+#SA
+files <- list.files(path="./2020.07/Raw/South Africa", full.names=TRUE)
+output_folder <- "C:/Users/dolee/Desktop/HFR/2020.07/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+```
+
+```{Validation check}
+#Thailand
+files <- list.files(path="./2020.07/Raw/Thailand", full.names=TRUE)
+output_folder <- "C:/Users/dolee/Desktop/HFR/2020.07/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+```
+
+```{Validation check}
+#Laos
+files <- list.files(path="./2020.07/Raw/Laos", full.names=TRUE)
+output_folder <- "C:/Users/dolee/Desktop/HFR/2020.07/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+```
+
+```{Validation check}
+#CDI
+files <- list.files(path="./2020.07/Raw/CDI", full.names=TRUE)
+output_folder <- "C:/Users/dolee/Desktop/HFR/2020.07/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+```
+
+```{Validation check}
+#Ukraine
+files <- list.files(path="./2020.07/Raw/Ukraine", full.names=TRUE)
+output_folder <- "C:/Users/dolee/Desktop/HFR/2020.07/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+```
+
+```{Validation check}
+#Haiti
+files <- list.files(path="./2020.07/Raw/Haiti", full.names=TRUE)
+output_folder <- "C:/Users/dolee/Desktop/HFR/2020.07/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+```
+
+```{Validation check}
+#Botswana
+files <- list.files(path="./2020.07/Raw/Botswana", full.names=TRUE)
+output_folder <- "C:/Users/dolee/Desktop/HFR/2020.07/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+```
+
+```{Validation check}
+#Zambia
+files <- list.files(path="./2020.07/Raw/Zambia", full.names=TRUE)
+output_folder <- "C:/Users/dolee/Desktop/HFR/2020.07/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+```
+
+```{Validation check}
+#Namibia
+files <- list.files(path="./2020.07/Raw/Namibia", full.names=TRUE)
+output_folder <- "C:/Users/dolee/Desktop/HFR/2020.07/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+```
+
+```{Validation check}
+#Mozambique
+files <- list.files(path="./2020.07/Raw/Mozambique", full.names=TRUE)
+output_folder <- "C:/Users/dolee/Desktop/HFR/2020.07/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+```
+
+```{Validation check}
+#Tanzania
+files <- list.files(path="./2020.07/Raw/Tanzania", full.names=TRUE)
+output_folder <- "C:/Users/dolee/Desktop/HFR/2020.07/Output"
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+```
+
+```{r}
+outputs <- list.files(path=output_folder, pattern="*XAP*",full.names=T)
+df <- sapply(outputs, read_csv, simplify=FALSE) %>% bind_rows(.id="id")
+df %>%
+  glimpse() %>%
+  dplyr::group_by(operatingunit, date, indicator) %>% 
+  dplyr::summarize(val = sum(val, na.rm = TRUE)) %>% print(n=Inf)
+```
