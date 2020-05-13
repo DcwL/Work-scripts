@@ -2,7 +2,9 @@
 
 ![Image](https://cdn.pixabay.com/photo/2014/06/18/13/23/time-371226_960_720.jpg)
 
-A list of R packages I use and/or am learning to master at work.
+This is a repository of my R codes from work used to perform data import, cleaning, validation, and manpiulation. 
+
+R packages used:
 
 - [tidyverse](https://tidyverse.tidyverse.org/)
 
