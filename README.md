@@ -4,14 +4,14 @@ A list of R packages I use and/or am learning to master at work.
 
 - [tidyverse](https://tidyverse.tidyverse.org/)
 
-  - ggplot2, for data visualisation.
-  - dplyr, for data manipulation.
-  - tidyr, for data tidying.
-  - readr, for data import.
-  - purrr, for functional programming.
-  - tibble, for tibbles, a modern re-imagining of data frames.
-  - stringr, for strings.
-  - forcats, for factors.
+  - [ggplot2](https://ggplot2.tidyverse.org/), for data visualisation.
+  - [dplyr](https://dplyr.tidyverse.org/), for data manipulation.
+  - [tidyr](https://tidyr.tidyverse.org/), for data tidying.
+  - [readr](https://readr.tidyverse.org/), for data import.
+  - [purrr](https://purrr.tidyverse.org/), for functional programming.
+  - [tibble](https://tibble.tidyverse.org/), for tibbles, a modern re-imagining of data frames.
+  - [stringr](https://stringr.tidyverse.org/), for strings.
+  - [forcats](https://forcats.tidyverse.org/), for factors.
 
 - [readxl](https://readxl.tidyverse.org/)
 
