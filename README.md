@@ -1,6 +1,6 @@
 # Work-scripts
 
-![Image](https://pixabay.com/images/id-371226/)
+![Image](Image by <a href="https://pixabay.com/photos/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=371226">Free-Photos</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=371226">Pixabay</a>)
 
 A list of R packages I use and/or am learning to master at work.
 
