@@ -1,5 +1,7 @@
 # Work-scripts
 
+[Image](https://pixabay.com/images/id-371226/)
+
 A list of R packages I use and/or am learning to master at work.
 
 - [tidyverse](https://tidyverse.tidyverse.org/)
