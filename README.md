@@ -1,6 +1,6 @@
 # Work-scripts
 
-A list of R packages I use / am learning to master at work.
+A list of R packages I use and/or am learning to master at work.
 
 - [tidyverse](https://tidyverse.tidyverse.org/)
 
