@@ -7,21 +7,35 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r set working directory}
+getwd()
 setwd("C:/Users/dolee/Desktop")
+```
+
+```{r load packages}
 library(tidyverse)
 install.packages("devtools")
 devtools::install_github("ICPI/ICPIutilities")
 library(ICPIutilities)
 library(readxl)
+```
+
+```{r read in your MSD datasets}
 df <- read_msd("MER_Structured_Datasets_Site_IM_FY18-20_20200320_v2_2_Nigeria.txt")
+
 df2 <- read_msd("MER_Structured_Datasets_Site_IM_FY18-20_20200320_v2_2_Mozambique.txt")
+
 df3 <- read_excel("sims_analytic_vw_mozambique_nigeria_data_05012020.xlsx")
+
 HFRfiles <- list.files(path="C:/Users/dolee/Desktop", pattern="*.csv", full.names = TRUE) %>%
   lapply(read.csv, stringsAsFactors=F) %>%
   bind_rows()
+
 Rise <- read_msd("C:/Users/dolee/Desktop/MER_Structured_Datasets_Site_IM_FY18-20_20200320_v2_2_Nigeria.txt", save_rds = FALSE)
+
 Rise_df <- read.csv("C:/Users/dolee/Desktop/Rise_20200512_Nigeria.csv")
+
+Zim_OVC <- read_msd("MER_Structured_Datasets_Site_IM_FY18-20_20200605_v1_1_Zimbabwe.txt")
 ```
 
 ```{r Ariana RISE request}
@@ -59,7 +73,6 @@ Rise_df_long %>%
   arrange(psnu) %>%
   print(n=Inf)
 ```
-
 
 ```{r}
 HFRfiles %>%
@@ -114,7 +127,33 @@ df3 <- df3 %>%
   filter(IMPLEMENTING_MECHANISM_NAME %in% c("14505 - STRENGHTENING INTERGRATED DELIVERY OF HIV/AIDS SERVICES(SIDHAS)", "14505 - AID620A1100002 - STRENGHTENING INTERGRATED DELIVERY OF HIV/AIDS SERVICES(SIDHAS)", "18442 - GHSC-PSM", "14664 - Integrated MARPs HIV Prevention Program (IMHIPP)"))
 ```
 
-```{r}
+```{r Zim OVC}
+Zim_OVC %>%
+  filter(fundingagency %in% c("Default"))
+
+?dplyr::group_by
+
+Zim_data <- Zim_OVC %>%
+  filter(indicator %in% c("OVC_SERV", "OVC_HIVSTAT")) %>%
+  filter(fiscal_year==2020) %>% 
+  filter(fundingagency=="USAID") %>%
+  select(-c(qtr3, qtr4, modality, snuprioritization, typemilitary, communityprioritization, facilityprioritization))
+
+Zim_data2 <- Zim_OVC %>%
+  filter(indicator %in% c("AGYW_PREV")) %>%
+  filter(fiscal_year==2020) %>% 
+  select(-c(qtr3, qtr4, modality, snuprioritization, typemilitary, communityprioritization, facilityprioritization))
+  
+Zim_datac <- dplyr::union(Zim_data, Zim_data2)
+
+Zim_datac %>%
+  split_save(operatingunit, "C:/Users/dolee/Desktop", "MSD_Site_IM_FY20_DATAFI", include_date=TRUE)
+
+Zim_data %>%
+  distinct(indicator, fiscal_year)
+```
+
+```{r export csv}
 write.csv(df3, "C:/Users/dolee/Desktop/Data/USAID_SIMS_Data.FI-HBF.csv")
 ```
 
