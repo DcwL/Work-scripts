@@ -1,0 +1,396 @@
+---
+title: "HFR 2020.08"
+output: html_document
+---
+
+```{r install and/or load R packages}
+library(tidyverse)
+devtools::install_github("USAID-OHA-SI/Wavelength")
+library(Wavelength)
+library(stringr)
+library(purrr)
+```
+
+```{r list functions in package}
+ls("package:Wavelength")
+```
+
+```{r setting Working directory}
+getwd()
+setwd("C:/Users/dolee/Desktop/HFR/SI fixes 20200617")
+pdfolder <- "C:/Users/dolee/Desktop/HFR/SI fixes 20200617"
+output_folder <- "C:/Users/dolee/Desktop/HFR/SI fixes 20200617/Outputs"
+```
+
+```{r API pull (optional)}
+#packages to install: keyringr, curl, httr, jasonlite
+#MER results & targets
+#org heirarchy
+#mechanism and partner information
+```
+
+```{r reading in HFR file (optional)}
+path <- "./"
+df <- hfr_read(path)
+```
+
+```{r reading in org_levels, orgs, ims, valid_dates}
+valid_dates <- Wavelength::hfr_identify_pds(fy=2020)
+org_levels <- read_csv("./HFR_FY20_GLOBAL_orglevels.csv")
+orgs <- read_csv("./HFR_FY20_GLOBAL_orghierarchy_20200611.csv")
+ims <- read_csv("./HFR_FY20_GLOBAL_mechanisms_20200611.csv")
+iso_map
+```
+
+```{r inspect org_levels, orgs, ims, valid_dates}
+ims %>%
+  glimpse() %>%
+  filter(operatingunit=="Zambia") %>%
+  distinct(mech_name, mech_code) %>%
+  print(n=Inf)
+
+orgs %>%
+  filter(operatingunit=="Zambia") %>%
+  filter(str_detect(orgunit, "Kamu")) %>%
+  print(n=Inf)
+```
+
+```{r Validation check}
+#Eswatini 2020.08
+files <- list.files(path="./2020.08/Raw/Botswana", full.names=TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=8, folderpath_output=output_folder)
+```
+
+```{r Validation check}
+#Ethiopia 2020.08
+files <- list.files(path="./2020.08/Raw/Ethiopia", full.names=TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=8, folderpath_output=output_folder)
+```
+
+```{r Validation check}
+#Malawi 2020.08
+files <- list.files(path="./2020.08/Raw/Malawi", full.names=TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=8, folderpath_output=output_folder)
+```
+
+```{r Validation check}
+#South Africa 2020.08
+files <- list.files(path="./2020.08/Raw/South Africa", full.names=TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=8, folderpath_output=output_folder)
+```
+
+```{r Validation check}
+#Namibia 2020.08
+files <- list.files(path="./2020.08/Raw/Namibia", full.names=TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=8, folderpath_output=output_folder)
+```
+
+```{r Validation check}
+#Kenya 2020.08
+files <- list.files(path="./2020.08/Raw/Kenya", full.names=TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=8, folderpath_output=output_folder)
+```
+
+```{r Validation check}
+#Haiti 2020.08
+files <- list.files(path="./2020.08/Raw/Haiti", full.names=TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=8, folderpath_output=output_folder)
+```
+
+```{r Validation check}
+#Mali 2020.08
+files <- list.files(path="./2020.08/Raw/Mali", full.names=TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=8, folderpath_output=output_folder)
+```
+
+```{r Validation check}
+#Zambia 2020.08
+files <- list.files(path="./2020.08/Raw/Zambia", full.names=TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=8, folderpath_output=output_folder)
+```
+
+```{r Validation check}
+#Caribbean 2020.07 EpiC resubmission
+files <- list.files(path="./2020.07/Raw/Caribbean", full.names=TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+```
+
+```{r Validation check}
+#Caribbean Jamaica 2020.07 JASL
+files <- list.files(path="./2020.07/Raw/Jamaica_JASL", full.names=TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+```
+
+```{r Validation check}
+#Mozambique 2020.08
+files <- list.files(path="./2020.08/Raw/Mozambique", full.names=TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=8, folderpath_output=output_folder)
+```
+
+```{r Validation check}
+#Zimbabwe 2020.08
+files <- list.files(path="./2020.08/Raw/Zimbabwe", full.names=TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=8, folderpath_output=output_folder)
+```
+
+SI fixes round 2 (due 6/18/2020)
+
+Uganda
+```{r Validation check}
+#pd1
+files <- list.files(path=".", pattern = "*PD1", full.names=TRUE)
+files
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=1, folderpath_output=output_folder)
+
+#pd2
+files <- list.files(path=".", pattern="*PD02", full.names = TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=2, folderpath_output=output_folder)
+
+#pd6
+files <- list.files(path=".", pattern="*20200402", full.names = TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=6, folderpath_output=output_folder)
+
+#pd7
+files <- list.files(path=".", pattern="*20200430", full.names = TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+
+#pd8
+files <- list.files(path=".", pattern="*20200528", full.names = TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=8, folderpath_output=output_folder)
+```
+
+Uganda extra
+```{r Read in processed file for extra validaion check}
+?hfr_read_all
+hfr_data <- hfr_read_all(output_folder, pattern = "*_UGA", source=T)
+hfr_data %>% 
+  glimpse() %>%
+  distinct(source) %>%
+  print(n=Inf)
+```
+
+Zambia
+```{r Validation check}
+#pd1
+files <- list.files(path=".", pattern = "*PD1", full.names=TRUE)
+files
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=1, folderpath_output=output_folder)
+#updated 17410 mechanism issues
+
+#pd2
+files <- list.files(path=".", pattern="*PD2", full.names = TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=2, folderpath_output=output_folder)
+#updated missing UIDs
+
+#pd6
+files <- list.files(path=".", pattern="*PD6", full.names = TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=6, folderpath_output=output_folder)
+#updated missing UIDs
+
+#pd7
+files <- list.files(path=".", pattern="*PD7", full.names = TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+
+#pd8
+files <- list.files(path=".", pattern="*PD8", full.names = TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=8, folderpath_output=output_folder)
+```
+
+Zambia extra
+```{r Read in processed file for extra validaion check}
+?hfr_read_all
+hfr_data <- hfr_read_all(pdfolder, pattern = "*_ZMB", source=T)
+hfr_data %>% 
+  glimpse() %>%
+  distinct(source) %>%
+  print(n=Inf)
+```
+
+Botswana
+```{r Validation check}
+#pd4
+files <- list.files(path=".", pattern = "*PD4_Botswana", full.names=TRUE)
+files
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=4, folderpath_output=output_folder)
+
+#pd6
+files <- list.files(path=".", pattern="*PD6_Botswana", full.names = TRUE)
+?hfr_process_template
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=6, folderpath_output=output_folder)
+#updated missing UIDs
+
+#pd7
+files <- list.files(path=".", pattern="*PD7_Botswana", full.names = TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+#updated missing UIDs
+
+#pd8
+files <- list.files(path=".", pattern="*PD8_Botswana", full.names = TRUE)
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=8, folderpath_output=output_folder)
+```
+
+Botswana extra
+```{r Read in processed file for extra validaion check}
+?hfr_read_all
+hfr_data <- hfr_read_all(output_folder, pattern = "*_BWA", source=T)
+hfr_data %>% 
+  glimpse() %>%
+  distinct(source) %>%
+  print(n=Inf)
+```
+
+Burundi
+```{r Validation check}
+#pd1
+files <- list.files(path=".", pattern = "*11_13_19", full.names=TRUE)
+files
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=1, folderpath_output=output_folder)
+
+#pd2
+files <- list.files(path=".", pattern="*PD2_Burundi", full.names = TRUE)
+files
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=2, folderpath_output=output_folder)
+#updated missing UIDs
+
+#pd4
+files <- list.files(path=".", pattern="*PD4_Burundi", full.names = TRUE)
+files
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=4, folderpath_output=output_folder)
+
+#pd5
+files <- list.files(path=".", pattern="*PD5_Burundi", full.names = TRUE)
+files
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=5, folderpath_output=output_folder)
+
+#pd6
+files <- list.files(path=".", pattern="*PD6_Burundi", full.names = TRUE)
+files
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=6, folderpath_output=output_folder)
+
+#pd7
+files <- list.files(path=".", pattern="*PD7_Burundi", full.names = TRUE)
+files
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=7, folderpath_output=output_folder)
+
+#pd8
+files <- list.files(path=".", pattern="*PD8_Burundi", full.names = TRUE)
+files
+purrr::walk(files, hfr_process_template)
+purrr::walk(files, hfr_process_template, round_hfrdate=TRUE, hfr_pd_sel=8, folderpath_output=output_folder)
+```
+
+Burundi extra
+```{r Read in processed file for extra validaion check}
+?hfr_read_all
+hfr_data <- hfr_read_all(output_folder, pattern = "*_BDI", source=T)
+
+hfr_data %>% 
+  glimpse() %>%
+  distinct(source) %>%
+  print(n=Inf)
+```
+
+```{r Check for invalid operating units}
+hfr_data %>%
+        is_ou_valid(df_orgs = orgs) %>%
+        filter(valid_ou == F) %>%
+        distinct(source, operatingunit, valid_ou) %>%
+        arrange(source)
+
+# Use mechanism code to update operating units
+    hfr_data <- hfr_data %>%
+        update_operatingunits(levels=org_levels, orgs=orgs, ims=ims)
+    
+# Check if there are still any invalid operating units (for invalid mech_code)
+    hfr_data %>%
+        is_ou_valid(df_orgs = orgs) %>%
+        filter(valid_ou == FALSE) %>%
+        View()
+# Use iso3 code (second attempt)
+    hfr_data <- hfr_data %>%
+        update_operatingunits(levels=org_levels, orgs=orgs)
+  
+# Check again for invalid operating units 
+    hfr_data %>%
+        is_ou_valid(df_orgs = orgs) %>%
+        filter(valid_ou == FALSE) %>%
+        View()
+```
+
+```{r Run full validation on the data (with all the operating units errors fixed)}
+#validate hfr data from processed files and return errors
+errors <- validate_hfr_data(hfr_data, org_levels, orgs, ims, valid_dates)
+  
+#Explore the errors
+errors %>% 
+  glimpse() %>%
+  distinct(source)
+
+#Explore the errors by pd
+errors_df <- errors %>%
+  filter(grepl('2020.08_ZMB', source))
+
+errors_df %>%
+  distinct(source)
+```
+
+Error fix: UID lookup
+```{r Fix errors...}
+?hfr_orgunit_search
+hfr_orgunit_search(orgs, 
+                   orgunit_name = "H Mivo",
+                   ou="Burundi") %>% print(n=Inf)
+```
+
+```{r Confirm all validations by marking valid processed files as validated files}
+confirm_validations(hfr_data = hfr_data, 
+                    hfr_errors = errors, 
+                    dir_files = output_folder)
+?confirm_validations
+```
+
+Inspect processed files version 1.0
+```{r}
+outputs <- list.files(path=output_folder, pattern="*CMR*",full.names=T)
+df <- sapply(outputs, read_csv, simplify=FALSE) %>% bind_rows(.id="id")
+df %>%
+  glimpse() %>%
+  filter(indicator=="HTS_TST_POS") %>%
+  dplyr::group_by(operatingunit, date, indicator, orgunituid) %>% 
+  dplyr::summarize(val = sum(val, na.rm = TRUE)) %>% 
+  filter(val==0) %>% print(n=Inf)
+```
+
