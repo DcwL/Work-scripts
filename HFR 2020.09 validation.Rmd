@@ -112,9 +112,6 @@ hfr_data %>%
   print(n=Inf)
 ```
 
-Mercy Hospital	mVf7HZsDkRn
-Awka Ibom ICBVBTSD1Ez
-
 Zimbabwe
 ```{r Validation check}
 #pd9
@@ -132,13 +129,6 @@ hfr_data %>%
   distinct(source) %>%
   print(n=Inf)
 ```
-
-Msasa RDC Clinic	YlbaMtnwj8s (sjROJN3yAFl)
-Zibagwe - 101794 - Clinic	yAnOckdjmVz (RfyByQKKiOr)
-Chisase Clinic	ycRz5OfK66h (can't match)
-Silozwi Clinic	pE7JIVQTAax (can't match)
-Tsvingwe Clinic	ETgdoZ3NO4b (new site)
-Mbizo16 (new site)
 
 Ukraine
 ```{r Validation check}
